@@ -12,5 +12,12 @@ Account.create!(
   name:         'sample',
   email:        'sample@mail.com',
   subscription: true,
-  confirmed_at: DateTime.now
+  confirmed_at: DateTime.now,
+)
+
+# User
+User.create!(
+  name: 'user@sample',
+  password: 'password',
+  account_id: Account.first.id,
 )
