@@ -6,6 +6,7 @@
 - `bash> mysql -u root -p`
 - `mysql> alter user 'root'@'%' identified　with mysql_native_password by [password];`
 - `docker-compose down`
+- `docker-compose run web rails webpacker:install`
 ## DB
 - `docker-compose run web rails db:create`
 - `docker-compose run web rails db:migrate`
