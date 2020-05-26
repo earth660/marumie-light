@@ -1,24 +1,15 @@
-# README
+# 初期設定
+## Docker
+- `docker-compose build`
+- `docker-compose up -d`
+- `docker-compose exec db bash`
+- `bash> mysql -u root -p`
+- `mysql> alter user 'root'@'%' identified　with mysql_native_password by [password];`
+- `docker-compose down`
+## DB
+- `docker-compose run web rails db:create`
+- `docker-compose run web rails db:migrate`
+- `docker-compose run web rails db:seed`
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 起動方法
+`docker-compose up` もしくは `docker-compose up -d`
