@@ -1,32 +1,32 @@
-# Docker-hub‚ÌRuby 2.6.6‚ÌƒCƒ[ƒW‚ğg‚¤
+# Docker-hubã®Ruby 2.6.6ã®ã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’ä½¿ã†
 FROM ruby:2.6.6
 
-# apt-get‚Éyarn‚ÌƒŠƒ|ƒWƒgƒŠ‚ğ’Ç‰Á‚·‚é
+# apt-getã«yarnã®ãƒªãƒã‚¸ãƒˆãƒªã‚’è¿½åŠ ã™ã‚‹
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-# apt-get‚ÌƒAƒbƒvƒf[ƒg
+# apt-getã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
 RUN apt-get update -qq && apt-get install -y nodejs yarn
-# railsƒtƒHƒ‹ƒ_‚ğì¬
+# railsãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆ
 RUN mkdir /marumie_light
 
-# ì‹ÆƒfƒBƒŒƒNƒgƒŠ‚ğAPP_ROOT‚ÉŠ„‚è“–‚Ä
+# ä½œæ¥­ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’APP_ROOTã«å‰²ã‚Šå½“ã¦
 ENV APP_ROOT /marumie_light
-# ì‹ÆƒfƒBƒŒƒNƒgƒŠ‚ğrailsƒtƒHƒ‹ƒ_‚Éİ’è
+# ä½œæ¥­ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’railsãƒ•ã‚©ãƒ«ãƒ€ã«è¨­å®š
 WORKDIR $APP_ROOT
-# ƒ[ƒJƒ‹‚ÌGemfile, Gemfile.lock‚ğƒRƒ“ƒeƒiã‚ÉƒRƒs[
+# ãƒ­ãƒ¼ã‚«ãƒ«ã®Gemfile, Gemfile.lockã‚’ã‚³ãƒ³ãƒ†ãƒŠä¸Šã«ã‚³ãƒ”ãƒ¼
 ADD ./Gemfile $APP_ROOT/Gemfile
 ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
 
-# bundle installÀs
+# bundle installå®Ÿè¡Œ
 RUN bundle install
 
 ADD . $APP_ROOT
 
-# ƒRƒ“ƒeƒi‹N“®–ˆ‚ÉÀs‚·‚éƒVƒFƒ‹ƒtƒ@ƒCƒ‹‚ğƒRƒ“ƒeƒi“à‚ÉƒRƒs[‚·‚é
+# ã‚³ãƒ³ãƒ†ãƒŠèµ·å‹•æ¯ã«å®Ÿè¡Œã™ã‚‹ã‚·ã‚§ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚³ãƒ³ãƒ†ãƒŠå†…ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT [ "entrypoint.sh" ]
 
-# ƒRƒ“ƒeƒi‚Ìƒ|[ƒg3000‚ğŠJ•ú
+# ã‚³ãƒ³ãƒ†ãƒŠã®ãƒãƒ¼ãƒˆ3000ã‚’é–‹æ”¾
 EXPOSE 3000

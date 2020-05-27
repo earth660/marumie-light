@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_115214) do
+ActiveRecord::Schema.define(version: 2020_05_27_122025) do
 
   create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "company_name", limit: 150, default: "", null: false
@@ -28,6 +28,18 @@ ActiveRecord::Schema.define(version: 2020_05_26_115214) do
     t.index ["name"], name: "index_accounts_on_name", unique: true
   end
 
+  create_table "matters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "accounts_id", null: false
+    t.string "control_number", limit: 20, null: false
+    t.string "category_name", limit: 30
+    t.string "last_modifier", limit: 50
+    t.string "customer", limit: 30
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["accounts_id"], name: "index_matters_on_accounts_id"
+    t.index ["control_number"], name: "index_matters_on_control_number", unique: true
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -43,5 +55,6 @@ ActiveRecord::Schema.define(version: 2020_05_26_115214) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "matters", "accounts", column: "accounts_id"
   add_foreign_key "users", "accounts"
 end
