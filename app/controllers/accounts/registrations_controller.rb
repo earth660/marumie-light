@@ -7,7 +7,8 @@ class Accounts::RegistrationsController < ApplicationController
 
   # アカウント登録
   def create
-    get_params    # @accuntにparams入力
+    get_params      # @accuntにparams入力
+    downcase_email  # emailを小文字にする
     if @account.save!  # .valid?が呼び出された後、save!される
       render html: 'success!'
     else
@@ -25,5 +26,10 @@ class Accounts::RegistrationsController < ApplicationController
     # 新規作成時StrongParameters
     def get_params
       @account = Account.new(params.require(:account).permit(:company_name, :name, :email))
+    end
+
+    # メールアドレスを全て小文字に変換
+    def downcase_email
+      @account.email.downcase!
     end
 end
